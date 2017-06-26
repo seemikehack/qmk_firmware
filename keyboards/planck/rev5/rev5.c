@@ -133,10 +133,10 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led )
 void matrix_init_kb(void) {
 
 	// Initialize LED drivers for backlight.
-	backlight_init_drivers();
+	//backlight_init_drivers();
 	
-	backlight_timer_init();
-	backlight_timer_enable();
+	//backlight_timer_init();
+	//backlight_timer_enable();
 
 	// Turn status LED on
 	DDRD |= (1<<6);
@@ -154,13 +154,13 @@ uint16_t backlight_task_counter = 0;
 void matrix_scan_kb(void)
 {
 
-	if (backlight_task_counter == 0)
-		backlight_rgb_task();
+	//if (backlight_task_counter == 0)
+	//	backlight_rgb_task();
 		// backlight_effect_single_LED_test();
-	backlight_task_counter = ((backlight_task_counter + 1) % 20);
+	//backlight_task_counter = ((backlight_task_counter + 1) % 20);
 
 	// This only updates the LED driver buffers if something has changed.
-	backlight_update_pwm_buffers();
+	//backlight_update_pwm_buffers();
 
 	matrix_scan_user();
 }

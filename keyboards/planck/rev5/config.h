@@ -16,6 +16,7 @@
 #define NO_BACKLIGHT_CLOCK
 
 #define B5_AUDIO
+#define C6_AUDIO
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)

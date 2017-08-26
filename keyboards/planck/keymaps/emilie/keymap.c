@@ -17,19 +17,22 @@ enum planck_layers {
   _LOWER,
   _RAISE,
   _ADJUST,
+  _NAV,
   _FN
 };
 
 enum planck_keycodes {
   COLEMAK = SAFE_RANGE,
   SWCOLE,
-  BKLT
+  LOWER,
+  RAISE,
+  NAV,
+  BKLT,
+  RSHENT
 };
 
 enum tap_dance_action_names {
-  LLCK = 0,
-  RLCK,
-  FLCK,
+  FLCK = 0,
   CLCK
 };
 
@@ -51,10 +54,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
-  {KC_ESC,   KC_Q,    KC_W,    KC_F,    KC_P,       KC_G,    KC_J,    KC_L,       KC_U,    KC_Y,    KC_SCLN, KC_DEL},
-  {KC_TAB,   KC_A,    KC_R,    KC_S,    KC_T,       KC_D,    KC_H,    KC_N,       KC_E,    KC_I,    KC_O,    KC_QUOT},
-  {TD(CLCK), KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,    KC_K,    KC_M,       KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {TD(FLCK), KC_LCTL, KC_LGUI, KC_LALT, TD(LLCK),   KC_SPC,  KC_BSPC, TD(RLCK),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_ESC,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,   KC_J,    KC_L,  KC_U,    KC_Y,    KC_SCLN, KC_DEL},
+  {KC_TAB,   KC_A,    KC_R,    KC_S,    KC_T,    KC_D,   KC_H,    KC_N,  KC_E,    KC_I,    KC_O,    KC_QUOT},
+  {TD(CLCK), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_K,    KC_M,  KC_COMM, KC_DOT,  KC_SLSH, RSHENT },
+  {TD(FLCK), KC_LCTL, KC_LGUI, KC_LALT, LOWER,   KC_SPC, KC_BSPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 [_SWCOLE] = { /* Software Colemak */
@@ -66,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |CtlGrv| GUI1 | GUI2 | GUI3 | GUI4 |      |      |   -  |   =  |   [  |   ]  |  \   |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   |  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
+ * |CtlGrv| GUI1 | GUI2 | GUI3 | GUI4 |      |      |   _  |   +  |   {  |   }  |   |  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -76,35 +79,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {LCTL(KC_GRV), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {KC_GRV,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______},
-  {_______,      _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______, _______, _______},
+  {KC_TILD,      KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE},
+  {LCTL(KC_GRV), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
+  {_______,      _______,    KC_MUTE,    KC_VOLD,    KC_VOLU,    _______, _______, _______, _______, _______, _______, _______},
   {_______,      _______,    _______,    _______,    _______,    _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END}
 },
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |      | SGUI1| SGUI2| SGUI3| SGUI4|      |      |   _  |   +  |   {  |   }  |  |   |
+ * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   \  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |      |
+ * |CtlGrv| SGUI1| SGUI2| SGUI3| SGUI4|      |      |   -  |   =  |   [  |   ]  |   \  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      | Mute | VolD | VolU |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {_______, SCMD(KC_1), SCMD(KC_2), SCMD(KC_3), SCMD(KC_4), _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-  {KC_TILD, KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______},
-  {_______, _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______, _______, _______}
+  {KC_GRV,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS},
+  {LCTL(KC_GRV), SCMD(KC_1), SCMD(KC_2), SCMD(KC_3), SCMD(KC_4), _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
+  {_______,      _______,    KC_MUTE,    KC_VOLD,    KC_VOLU,    _______, _______, _______, _______, _______, _______, _______},
+  {_______,      _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      |  F1  |  F2  |  F3  |  F4  |      |MidiOn|MidOff|Colemk|SwCole|      | Reset|
+ * |      |  F1  |  F2  |  F3  |  F4  |      |      |      |      |      |      | Reset|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F5  |  F6  |  F7  |  F8  |      |      |      |      |      |      |      |
+ * |      |  F5  |  F6  |  F7  |  F8  |      | AudOn|AudOff|Colemk|SwCole|      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |  F9  |  F10 |  F11 |  F12 |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -112,10 +115,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, MI_ON,   MI_OFF,  COLEMAK, SWCOLE,  _______, RESET},
-  {_______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, _______, _______, _______, _______, _______},
+  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, _______, _______, _______, _______, RESET},
+  {_______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, AU_ON,   AU_OFF,  COLEMAK, SWCOLE,  _______},
   {_______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______},
   {BKLT,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+
+/* Navigation layer
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_NAV] = {
+  {_______, _______, _______, KC_UP,   _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______},
+  {_______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* Function layer
@@ -139,17 +160,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-float tone_startup[][2] = {
-  {NOTE_B5, 20},
-  {NOTE_B6, 8},
-  {NOTE_DS6, 20},
-  {NOTE_B6, 8}
-};
-
-float tone_qwerty[][2]  = SONG(QWERTY_SOUND);
-float tone_colemak[][2] = SONG(COLEMAK_SOUND);
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-float music_scale[][2]  = SONG(MUSIC_SCALE_SOUND);
+float tone_startup[][2]   = SONG(ZELDA_PUZZLE);
+float tone_qwerty[][2]    = SONG(QWERTY_SOUND);
+float tone_colemak[][2]   = SONG(COLEMAK_SOUND);
+float tone_goodbye[][2]   = SONG(E__NOTE(_C5), E__NOTE(_D5), E__NOTE(_F5), E__NOTE(_E5), S__NOTE(_F5), S__NOTE(_E5), Q__NOTE(_F5));
+float music_scale[][2]    = SONG(MUSIC_SCALE_SOUND);
+float tone_layerlock[][2] = SONG(ED_NOTE(_G5), ED_NOTE(_E5), ED_NOTE(_C5), H__NOTE(_G5));
 #endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -157,59 +173,10 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-void lock_low(void) {
-  layer_move(_LOWER);
-  // TODO flash LEDs
-}
-
-void lock_rai(void) {
-  layer_move(_RAISE);
-  // TODO flash LEDs
-}
-
 void lock_fn(void) {
   layer_move(_FN);
+  PLAY_NOTE_ARRAY(tone_layerlock, false, 0);
   // TODO flash LEDs
-}
-
-void low_press(qk_tap_dance_state_t *state, void *user_data) {
-  if(state->count == 1) {
-    layer_on(_LOWER);
-    update_tri_layer(_LOWER, _RAISE, _ADJUST);
-  }
-}
-
-void low_done(qk_tap_dance_state_t *state, void *user_data) {
-  if(state->count == 2) {
-    lock_low();
-  }
-}
-
-void low_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if(state->count == 1) {
-    layer_off(_LOWER);
-    update_tri_layer(_LOWER, _RAISE, _ADJUST);
-  }
-}
-
-void rai_press(qk_tap_dance_state_t *state, void *user_data) {
-  if(state->count == 1) {
-    layer_on(_RAISE);
-    update_tri_layer(_LOWER, _RAISE, _ADJUST);
-  }
-}
-
-void rai_done(qk_tap_dance_state_t *state, void *user_data) {
-  if(state->count == 2) {
-    lock_rai();
-  }
-}
-
-void rai_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if(state->count == 1) {
-    layer_off(_RAISE);
-    update_tri_layer(_LOWER, _RAISE, _ADJUST);
-  }
 }
 
 void fn_press(qk_tap_dance_state_t *state, void *user_data) {
@@ -231,11 +198,11 @@ void fn_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [LLCK] = ACTION_TAP_DANCE_FN_ADVANCED(low_press, low_done, low_reset),
-  [RLCK] = ACTION_TAP_DANCE_FN_ADVANCED(rai_press, rai_done, rai_reset),
   [FLCK] = ACTION_TAP_DANCE_FN_ADVANCED(fn_press, fn_done, fn_reset),
   [CLCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
+
+static uint16_t key_timer;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -255,6 +222,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistent_default_layer_set(1UL<<_SWCOLE);
       }
       return false;
+    case LOWER:
+      if(record->event.pressed){
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+    case RAISE:
+      if(record->event.pressed){
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
     case BKLT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
@@ -263,6 +248,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
       } else {
         unregister_code(KC_RSFT);
+      }
+      return false;
+    case RSHENT: // tap for enter, hold for right shift
+      if(record->event.pressed) {
+        key_timer = timer_read();
+        register_code(KC_RSFT);
+      } else {
+        unregister_code(KC_RSFT);
+        if(timer_elapsed(key_timer) < 152) { // tapping term
+          register_code(KC_ENT);
+          unregister_code(KC_ENT);
+        }
       }
       return false;
     }
@@ -286,7 +283,7 @@ void startup_user()
 void shutdown_user()
 {
   PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
-  _delay_ms(150);
+  _delay_ms(500);
   stop_all_notes();
 }
 
